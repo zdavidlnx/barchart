@@ -24,7 +24,7 @@ def chart(bars_count):
         data['costs'].append(random.uniform(1.00, 1000.00))
 
     hover = create_hover_tool()
-    plot = create_bar_chart(data, "Bugs encontradas por día", "days", "bugs". hover)
+    plot = create_bar_chart(data, "Bugs encontradas por día", "days", "bugs", hover)
 
     script, div = components(plot)
 
@@ -32,7 +32,19 @@ def chart(bars_count):
 
 
 def create_hover_tool():
-    return None
+    """Generates the HTML for the Bokeh's hover data tool on our graph."""
+    hover_html = """
+          <div>
+            <span class="hover-tooltip">$x</span>
+          </div>
+          <div>
+            <span class="hover-tooltip">@bugs bugs</span>
+          </div>
+          <div>
+            <span class="hover-tooltip">$@costs{0.00}</span>
+          </div>
+        """
+    return HoverTool(tooltips=hover_html)
 
 
 def create_bar_chart(data, title, x_name, y_name, hover_tool=None, width=1200, height=300):
@@ -49,10 +61,10 @@ def create_bar_chart(data, title, x_name, y_name, hover_tool=None, width=1200, h
     if hover_tool:
         tools = [hover_tool, ]
 
-    plot =figure(title=title, x_range=xdr, y_range=ydr, plot_width=width,
-                 plot_height=height, h_symmetry=False, v_symmetry=False,
-                 min_border=0, toolbar_location="above", tools=tools,
-                 responsive=True, outline_line_color="#666666")
+    plot = figure(title=title, x_range=xdr, y_range=ydr, plot_width=width,
+                  plot_height=height, h_symmetry=False, v_symmetry=False,
+                  min_border=0, toolbar_location="above", tools=tools,
+                  responsive=True, outline_line_color="#666666")
 
     glyph = VBar(x=x_name, top=y_name, bottom=0, width=.8, fill_color="#e12127")
     plot.add_glyph(source, glyph)
