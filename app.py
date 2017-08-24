@@ -1,12 +1,10 @@
 import random
 
-from bokeh.models import (HoverTool, FactorRange, Plot, LinearAxis, Grid, Range1d)
-from bokeh.models.glyphs import VBar
-from bokeh.plotting import figure
-from bokeh.charts import Bar
 from bokeh.embed import components
+from bokeh.models import (HoverTool, FactorRange, LinearAxis, Grid, Range1d)
+from bokeh.models.glyphs import VBar
 from bokeh.models.sources import ColumnDataSource
-
+from bokeh.plotting import figure
 from flask import Flask, render_template
 
 app = Flask(__name__)
